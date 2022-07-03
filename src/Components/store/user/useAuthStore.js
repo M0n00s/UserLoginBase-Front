@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { styleApi } from "../../../axios/styleApi";
-import { onChecking, onLogin } from "./userSlice";
+import { clearErrorMsg, onChecking, onLogin, onLogout } from "./userSlice";
 
 export const useAuthStore = () => {
   
@@ -15,10 +15,12 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token );
             dispatch(onLogin({name: data.name, uid: data.uid}))
 
-
-            console.log(data)
         } catch (error) {
-            console.log(error)
+            dispatch(onLogout('credencilales incorrectas'));
+            setTimeout(() => {
+                dispatch(clearErrorMsg());
+            }, 10);
+            
         }
     }
 

@@ -4,10 +4,15 @@
 .full_with{
     width: 100%;
 }
-.containerMod input{
+.input_text_styled{
     border: none;
     background: none;
     font-size: 1rem;
     padding: 0.6em 0.3em;
     border-bottom: 1px solid black;
+}
+
+.link{
+    text-decoration: none;
+    padding: 1em;
 }
