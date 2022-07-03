@@ -24,6 +24,35 @@ export const useAuthStore = () => {
         }
     }
 
+    const startRegister = async ({email, firstName, lastName, password}) => {
+        dispatch(onChecking);
+        console.log('register')
+        try {
+            const {data} = await styleApi.post('/auth/new', {email, firstName, lastName, password} );
+            localStorage.setItem('token', data.token );
+            dispatch(onLogin({name: data.name, uid: data.uid}))
+        } catch (error) {
+            dispatch(onLogout(error.response.data?.msg || ''));
+            setTimeout(() => {
+                dispatch(clearErrorMsg());
+            }, 10);
+        }
+    }
+
+    const checkAuthToken = async () => {
+        const token = localStorage.getItem('token');
+        if(!token) return dispatch( onLogout() );
+
+        try {
+            const {data} = await styleApi.get('/auth/renew');
+            localStorage.setItem('token', data.token);
+            dispatch( onLogin({name: data.name, uid: data.uid}) )
+        } catch (error) {
+            localStorage.clear();
+            dispatch( onLogout() );
+        }
+    }
+
 
     return {
         //propiedades
@@ -33,5 +62,7 @@ export const useAuthStore = () => {
 
         //metodos
         startLogin,
+        startRegister,
+        checkAuthToken
     }
 }
