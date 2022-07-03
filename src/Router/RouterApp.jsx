@@ -1,26 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Login } from '../Components/Login/Login';
 import { HomePage } from '../Components/Page/HomePage/HomePage';
 import { Register } from '../Components/Register/Register';
+import { useAuthStore } from '../Components/store/user/useAuthStore';
 
 export const RouterApp = () => {
- const auhtStatus = 'not-authenticated';
+  const {status, checkAuthToken} = useAuthStore(); 
+
+  useEffect(()=>{
+    checkAuthToken();
+  },[])
 
   return (
     <>
         <Routes >
           {
-            auhtStatus === 'not-authenticated' 
-            ? <>
+            status === 'not-authenticated' 
+            ? (<>
                 <Route path='/login' element={ <Login />}/>
                 <Route path='/register' element={ <Register />} />
                 <Route path='/*' element={ <Navigate to='/login' />} />
-              </> 
-            : <>
+              </> )
+            : (<>
                 <Route path='/' element={ <HomePage />} />
-                {/* <Route path='/*' element={ <Navigate to='/' />} /> */}
-              </> 
+                <Route path='/*' element={ <Navigate to='/' />} />
+              </> )
           }
           
         </Routes>
