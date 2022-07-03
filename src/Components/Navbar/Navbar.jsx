@@ -7,7 +7,7 @@ export const Navbar = () => {
 
   return (
     <nav className=" navbar navbar-expand-lg navbar-light bg-light p-3">
-        {/* <div className="container-fluid"> */}
+        <div className="container-fluid">
             <a className="navbar-brand" href="#">Navbar</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -23,18 +23,10 @@ export const Navbar = () => {
                 <span className='nav-link'>Hello! {user.name}</span>
                 <button onClick={startLogout} className="btn btn-outline-danger" type="submit">Logout</button>
             </form>
-            {/* </div> */}
+            </div>
         </div>
     </nav>
 
 
-
-    // <div>{user.name} 
-    //   <button 
-    //     className='btn btn-warning'
-    //     onClick={ startLogout }
-    //     >LogOut
-    //   </button>
-    // </div>
   )
 }
